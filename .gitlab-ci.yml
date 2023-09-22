@@ -1,0 +1,29 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  image: gcc:latest
+  before_script:
+    - apt-get update
+    - apt-get install -y libcunit1 libcunit1-dev
+
+  script:
+    - make
+
+test:
+  stage: test
+  image: gcc:latest
+  before_script:
+    - apt-get update
+    - apt-get install -y libcunit1 libcunit1-dev
+  script:
+    - make test
+    - make clean
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying..."
